@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIGENERE</title>
+<script>
+
+var Vigenere = {
+encode: function(key, message) {
+key = key.toUpperCase();
+message = message.toUpperCase();   
+
+for (var i=0; i<message.length; i++) {
+var k = i % key.length;
+var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+var shift = alphabet.indexOf(key[k]);
+var position = alphabet.indexOf(message[i]);
+if (shift<0 || position<0) {
+var replacement = message[i];
+} else {
+position += shift;
+position %= alphabet.length;
+var replacement = alphabet[position];
+}
+message = message.substr(0,i) 
++ replacement + message.substr(i+1);
+}
+ 
+return message;
+},
+decode: function(key, message) {
+key = key.toUpperCase();
+message = message.toUpperCase();
+        
+for (var i=0; i<message.length; i++) {
+var k = i % key.length;
+var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+var shift = alphabet.indexOf(key[k]);
+var position = alphabet.indexOf(message[i]);
+if (shift<0 || position<0) {
+var replacement = message[i];
+} else {
+position -= shift;
+while (position<0) {
+position += alphabet.length;
+}
+var replacement = alphabet[position];
+}
+message = message.substr(0,i) 
++ replacement + message.substr(i+1);
+}   
+return message;
+},
+
+cipher: function(key, message, encrypt) {
+return (encrypt) ?
+this.encode(key, message) :
+this.decode(key, message);
+}  
+};
+</script>
+</head>
+
+<body>
+
+<p><label for="key">Vigenere Key:</label> <input type="text" id="key" value="" placeholder="VIGENERE"></p>
+<p><label for="message">Message:</label> <input type="text" id="message" value=""></p>
+<button onclick="document.getElementById('message').value= 
+Vigenere.cipher( 
+document.getElementById('key').value, 
+document.getElementById('message').value, 
+true);"> 
+Encode</button>  
+<button onclick="document.getElementById('message').value= 
+Vigenere.cipher( 
+document.getElementById('key').value, 
+document.getElementById('message').value, 
+false);"> 
+Decode</button>  
+
+  </body>
+</html>

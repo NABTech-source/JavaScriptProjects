@@ -1,0 +1,118 @@
+<!DOCTYPE html>  
+<html>
+
+<head>
+
+<title>Rainbow</title>
+<script src="Rainbow.js"></script>
+</head>
+
+<body>
+
+<div id="rainbow"style="padding: 32px; text-align: center;">
+
+<h1 id="rainbowHeader">Rainbow</h1>
+
+</div>
+
+<div id="palette">
+
+<p>Click a color to add it to your rainbow.</p>
+
+<div id="red">Red.</div>
+<div id="orange">Orange.</div>
+<div id="yellow">Yellow.</div>
+<div id="green">Green.</div>
+<div id="blue">Blue.</div>
+<div id="indigo">Indigo.</div>
+<div id="violet">Violet.</div>
+ 
+
+</div>
+
+<div>
+
+<p>
+
+<label for="skyColor">Sky Color:</label>
+<input id="skyColor" value="">
+<button id="changeSky">Change Sky</button>
+
+</p>
+
+<p>
+
+<label for="rainbowTitle">Rainbow Title:</label>
+<input id="rainbowTitle" value="Rainbow">
+<button id="changeTitle">Change Title</button>
+
+</p>
+
+</div>
+
+<script>
+
+var red = document.getElementById('red');  
+var orange = document.getElementById('orange');  
+var yellow = document.getElementById('yellow');  
+var green = document.getElementById('green');  
+var blue = document.getElementById('blue');  
+var indigo = document.getElementById('indigo');  
+var violet = document.getElementById('violet');   
+
+red.style.backgroundColor = 'red';  
+orange.style.backgroundColor = 'orange';  
+yellow.style.backgroundColor = 'yellow';  
+green.style.backgroundColor = 'green';  
+blue.style.backgroundColor = 'blue';  
+indigo.style.backgroundColor = 'indigo';  
+violet.style.backgroundColor = 'violet';  
+ 
+document.getElementById('changeSky').onclick = function() {
+document.getElementById('rainbow').style.backgroundColor 
+=document.getElementById('skyColor').value;  
+};  
+
+document.getElementById('changeTitle').onclick 
+= function() {
+document.getElementById('rainbowHeader').innerHTML 
+= document.getElementById('rainbowTitle').value;  
+};  
+
+red.onmouseover =  
+orange.onmouseover =  
+yellow.onmouseover =  
+green.onmouseover =  
+blue.onmouseover =  
+indigo.onmouseover =  
+violet.onmouseover = function() {
+this.style.backgroundColor = 'silver';  
+};  
+
+red.onmouseout =  
+orange.onmouseout =  
+yellow.onmouseout =  
+green.onmouseout =  
+blue.onmouseout =  
+indigo.onmouseout =  
+violet.onmouseout =  function() {
+this.style.backgroundColor = this.id;  
+};  
+
+red.onclick =  
+orange.onclick =  
+yellow.onclick =  
+green.onclick =  
+blue.onclick =  
+indigo.onclick =  
+violet.onclick = function() {
+if (this.parentNode==document.getElementById('palette')) {
+document.getElementById('rainbow').appendChild(this);
+} else {
+document.getElementById('palette').appendChild(this);
+}
+this.style.backgroundColor = this.id;  
+};  
+</script>
+</body>    
+</html>  

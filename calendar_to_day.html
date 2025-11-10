@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar To Day</title>
+
+<Script>
+
+function doomsdayAlgorithm(userYear,userMonth,userDate) {
+var daysOfTheWeek = [
+'Sunday',
+'Monday',
+'Tuesday',
+'Wednesday',
+'Thursday',
+'Friday',
+'Saturday'
+];
+var monthDooms = [3,28,14,4,9,6,11,8,5,10,7,12];
+var centuryNum = Math.floor(userYear/100);
+var centuryDoomsdayKeys = [2, 0, 5, 3];
+var doomsdayNumber = centuryDoomsdayKeys[centuryNum%4];  
+var twoDigitYear = userYear - centuryNum*100;
+doomsdayNumber += Math.floor(twoDigitYear/12);  
+
+var remainder = twoDigitYear%12;
+doomsdayNumber += remainder;  
+doomsdayNumber += Math.floor(remainder/4);  
+doomsdayNumber %= 7;
+
+var monthDoomsday = monthDooms[userMonth];
+if ( ( (twoDigitYear==0 && centuryNum%4==0)
+|| (twoDigitYear!=0 && twoDigitYear%4==0) )
+&& (userMonth<2) ) {
+monthDoomsday++;
+}  
+doomsdayNumber += userDate - monthDoomsday; 
+while (doomsdayNumber<0 || doomsdayNumber>6) {
+if (doomsdayNumber<0) doomsdayNumber += 7;
+if (doomsdayNumber>6) doomsdayNumber -= 7;
+}
+return daysOfTheWeek[doomsdayNumber];  
+}
+</Script>
+
+</head>
+
+<body>
+
+<div>
+
+<p>
+
+<label for="userYear">Year:</label> <input id="userYear" style="width:4em;" 
+type="text" placeholder="YYYY">
+<label for="userMonth">Month:</label>
+<select id="userMonth" style="width:8em;">
+<option value="0">January</option>
+<option value="1">February</option>
+<option value="2">March</option>
+<option value="3">April</option>
+<option value="4">May</option>
+<option value="5">June</option>
+<option value="6">July</option>
+<option value="7">August</option>
+<option value="8">September</option>
+<option value="9">October</option>
+<option value="10">November</option>
+<option value="11">December</option>
+
+</select>
+
+<label for="userDate">Day:</label> <input id="userDate" 
+style="width:2em;" type="text" placeholder="DD">
+
+<button onclick=" 
+document.getElementById('outputWeekday').value= 
+doomsdayAlgorithm(
+document.getElementById('userYear').value, 
+document.getElementById('userMonth').value, 
+document.getElementById('userDate').value 
+);"> 
+Calculate Weekday</button> 
+
+<input id="outputWeekday" type="text" value="">
+
+</p>
+
+<button onclick="document.getElementById('outputWeekday').
+value='*'+['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+[new Date(Number(document.getElementById('userYear').value),Number(document.getElementById('userMonth').value),
+Number(document.getElementById('userDate').value)).getDay()].toUpperCase()+'*';">Confirm
+Answer
+
+</button>
+
+</div>
+
+</body>
+
+</html>

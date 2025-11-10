@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY DATA</title>
+<style>
+  
+    </style>
+</head>
+
+<body>
+
+<button id="sortLast">Sort by last name</button>  
+<button id="sortFirst">Sort by first name</button>  
+<button id="reverseData">Reverse</button>    
+
+<div id="tableDisplay"></div>  
+
+<script>
+
+var sortBy = 0;    
+
+var database = [
+    ['Martin','Junker','2559684','martin@yahoo.com'],
+    ['Logan','Ash','6987258','logan_23@aol.com'],
+    ['Beau','Wolf','7859351','myletter@gmail.com'],
+    ['Hunter','Kai','9532684','kai2025@yahoo.com'],
+    ['Kit','Wren','9008541','kitwren@bluemail.com'],
+    ['Flynn','Leon','4372589','admin@abc.com'],
+    ['Levi','Ronin','6473689','ronin_la@lamail.com'],
+    ['Luxton','Lark','64796582','larklark2020@yahoo.com'],
+    ['Cosmo','Knox','4372514','namecosmo@gmail.com'],
+    ['Gideon','Bear','6102878','gideon3130@mail.com'],
+]; 
+
+
+function resortData() {
+if (sortBy==-1) {
+database.reverse();
+} 
+else {
+database.sort(function(a,b) {
+if (a[sortBy].toLowerCase() 
+< b[sortBy].toLowerCase()) {
+return -1;
+} else if (a[sortBy].toLowerCase() 
+> b[sortBy].toLowerCase()) {
+return 1;
+} else {
+return 0;
+}
+});    
+}      
+
+var htmlString = '<h1>BUYER LIST</h1>'
+
++ '<table>'
++'<tr>'
++'<th>Last Name</th>'
++'<th>First Name</th>'
++'<th>Telephone</th>'
++'<th>E-mail</th>'
++'</tr>';
+for (var i = 0; i < database.length; i++) {
+htmlString += '<tr>';
+for (var j = 0; j < database[i].length; j++) {
+htmlString += '<td>'
++ database[i][j]
++ '</td>';
+}
+htmlString += '</tr>';
+}
+htmlString += '</table>';
+document.getElementById('tableDisplay').innerHTML = 
+htmlString;
+}    
+
+resortData();      
+
+document.getElementById('sortLast').onclick = function() {
+sortBy = 0;
+resortData();  
+};  
+document.getElementById('sortFirst').onclick = function() {
+sortBy = 1;
+resortData();  
+};  
+document.getElementById('reverseData').onclick = function() {
+sortBy = -1;
+resortData();  
+};  
+
+</script>
+</body>
+
+</html>
